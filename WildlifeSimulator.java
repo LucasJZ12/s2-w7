@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 /**
  * WildlifeSimulator - Manages population dynamics for multiple species
  * Uses an array of Species objects to store and simulate species data
@@ -7,14 +11,14 @@ public class WildlifeSimulator {
     private int speciesCount;
     
     public WildlifeSimulator(int maxSpecies) {
-        //TODO
+        species= new Species[maxSpecies];
     }
     
     /**
      * Add a species to the simulator
      */
     public void addSpecies(Species s) {
-        //TODO
+        species[speciesCount++] = s;
     }
     
     /**
@@ -44,6 +48,15 @@ public class WildlifeSimulator {
      */
     public String getSpeciesInfo(int index) {
         return species[index].toString();
+    }
+
+    public String toString(){
+        String m = "";
+        for(Species s : species){
+            if(s != null)
+                m += s.toString() + "\n";
+        }
+        return m;
     }
     
     /**
