@@ -25,8 +25,8 @@ public class WildlifeSimulatorRunner {
             String[] temp = line.split(",");
             Species species = new Species(temp[0], Long.parseLong(temp[1]), Double.parseDouble(temp[2]), Double.parseDouble(temp[3]), Long.parseLong(temp[4]), temp[5]);
             simulator.addSpecies(species);
-            System.out.println(simulator);
         }
+        s.close();
         
         
         System.out.println("\n========================================");
@@ -37,23 +37,25 @@ public class WildlifeSimulatorRunner {
         // Display initial populations
         System.out.println("INITIAL POPULATIONS:");
         System.out.println("------------------");
-        
+        System.out.println(simulator);
         
         // Run simulation for 10 years and record data year-by-year
         int simulationYears = 10;
+        simulator.simulate(simulationYears);
         
-        
+        System.out.println("FINAL POPULATIONS:");
+        System.out.println("------------------");
         // Display final populations
-        
+        System.out.println(simulator);
         
         // Display statistics
         System.out.println("\n\nSIMULATION STATISTICS:");
         System.out.println("------------------");
         int mostPopulous = simulator.getMostPopulousIndex();
         int mostEndangered = simulator.getMostEndangeredIndex();
+        System.out.println("Most populous: " + simulator.getSpecies(mostPopulous) + " Most endangered: " + simulator.getSpecies(mostEndangered));
+        System.out.println("Species count: "+ simulator.getSpeciesCount());
         
-        
-                
         System.out.println("\nSimulation complete!");
     }
     
@@ -62,7 +64,7 @@ public class WildlifeSimulatorRunner {
      * CSV format: name,population,birthRate,deathRate,capacity,location
      */
     private static void loadSpeciesFromCSV(WildlifeSimulator simulator, String filename) {
-        //TODO
+        //TODO eat
     }
     
     /**
