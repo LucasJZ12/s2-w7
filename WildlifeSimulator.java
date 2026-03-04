@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -39,6 +41,19 @@ public class WildlifeSimulator {
         }
     }
     
+    public void writeYear(int year){
+        try (PrintWriter writer = new PrintWriter(new FileWriter("simulation-results.txt", true))) {
+        for (Species s : species) {
+            if (s != null) {
+                writer.println(year + "," + s.getName() + "," + s.getPopulation());
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Error writing file");
+    }
+        
+    }
+
     /**
      * Get species at given index
      */

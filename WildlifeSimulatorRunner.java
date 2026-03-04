@@ -41,7 +41,7 @@ public class WildlifeSimulatorRunner {
         
         // Run simulation for 10 years and record data year-by-year
         int simulationYears = 10;
-        simulator.simulate(simulationYears);
+        simulateAndRecordData(simulator, simulationYears, "simulation-results.txt");
         
         System.out.println("FINAL POPULATIONS:");
         System.out.println("------------------");
@@ -57,14 +57,7 @@ public class WildlifeSimulatorRunner {
         System.out.println("Species count: "+ simulator.getSpeciesCount());
         
         System.out.println("\nSimulation complete!");
-    }
-    
-    /**
-     * Load species data from CSV file into the simulator
-     * CSV format: name,population,birthRate,deathRate,capacity,location
-     */
-    private static void loadSpeciesFromCSV(WildlifeSimulator simulator, String filename) {
-        //TODO eat
+        
     }
     
     /**
@@ -72,7 +65,20 @@ public class WildlifeSimulatorRunner {
      * Writes: simulation_year,species,population,population_change
      */
     private static void simulateAndRecordData(WildlifeSimulator simulator, int years, String filename) {
-        //TODO
+        // Clear file first (so old runs don’t stack)
+    try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+        writer.println("year,species,population"); // header
+    } catch (IOException e) {
+        System.err.println("Error creating file");
+    }
+
+    // Simulate year-by-year
+    for (int year = 1; year <= years; year++) {
+
+        simulator.simulate(1);   // simulate ONE year
+
+        simulator.writeYear(year);  // record that year
+    }
     
     }    
     
